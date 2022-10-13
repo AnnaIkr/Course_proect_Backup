@@ -45,10 +45,6 @@ class Downloads_Photo:
             with open(f'{self.direct}/log.json', 'a') as file:
                 json.dump(logs_list, file, indent=2)
 
-if __name__ == '__main__':
-    user1 = Downloads_Photo(id, token_vk)
-    user1.downloads_photo_from_vk()
-
 
 class Upload_Photo:
     def __init__(self, token_yandex: str):
@@ -96,5 +92,7 @@ class Upload_Photo:
         return name_folder
 
 if __name__ == '__main__':
+    user1 = Downloads_Photo(id, token_vk)
+    user1.downloads_photo_from_vk()
     user = Upload_Photo(token_yandex)
     user.uploading_files_to_yandex_disk(user.creating_a_new_folder_on_yandex_disk)

@@ -14,7 +14,7 @@ class Downloads_Photo:
     def __init__(self, user_id: str, token_vk: str):
         self.user_id = user_id
         self.token_vk = token_vk
-        self.direct = r'D:\PhotoVk'
+        self.direct = r'C:\PhotoVK'
 
     def downloads_photo_from_vk(self):
         os.chdir(self.direct)
@@ -28,10 +28,18 @@ class Downloads_Photo:
         res = requests.get(url_vk, params=params_vk)
         bar = Bar('Скачивание фото', max=len(res.json()['response']['items']))
         list_name_fils_by_likes = []
+        list_name_fils_by_date = []
         for i in res.json()['response']['items']:
             list_name_fils_by_likes.append(i['likes']['count'])
+            list_name_fils_by_date.append(i['date'])
             url_photo = i['sizes'][-1]['url']
             self.size = i['sizes'][-1]['type']
+            new_list_name = []
+            for i, char in enumerate(list_name_fils_by_likes):
+                if char not in new_list_name:
+                    new_list_name.append(char)
+                else:
+                    list_name_fils_by_likes[i] = list_name_fils_by_date[i]
             response = requests.get(url_photo)
             for name in list_name_fils_by_likes:
                 continue
@@ -49,7 +57,7 @@ class Downloads_Photo:
 class Upload_Photo:
     def __init__(self, token_yandex: str):
         self.token_yandex = token_yandex
-        self.direct = r'D:\PhotoVk'
+        self.direct = r'C:\PhotoVK'
         self.number_of_files_to_send = 5
 
     def uploading_files_to_yandex_disk(self, path):
